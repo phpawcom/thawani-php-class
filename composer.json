@@ -1,0 +1,14 @@
+{
+    "name": "s4d/thawani",
+    "description": "Accept payments in Omani Rials using Thawani gateway",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Abdulaziz Al Rashdi",
+            "email": "me@alrashdi.co"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
