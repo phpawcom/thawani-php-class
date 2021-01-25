@@ -21,7 +21,10 @@ switch ($_REQUEST['op']){
             'success_url' => $thawani->currentPageUrl().'?op=checkPayment',
             'cancel_url' => $thawani->currentPageUrl().'?op=checkPayment',
             'metadata' => [
-                'order_id' => $orderId
+                'order_id' => $orderId,
+                'customer_name' => 'Fulan Al Fulani',
+                'customer_phone' => '90000000',
+                'customer_email' => 'email@domain.tld',
             ]
         ];
         $url = $thawani->generatePaymentUrl($input);

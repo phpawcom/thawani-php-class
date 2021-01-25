@@ -28,9 +28,12 @@ $url = $thawani->generatePaymentUrl([
    ],
   'success_url' => $thawani->currentPageUrl().'?op=checkPayment', ## Put the link to next a page with the method checkPaymentStatus()
   'cancel_url' => $thawani->currentPageUrl().'?op=checkPayment',  
-  'metadata' => [  
-  'order_id' => $orderId  
-  ]  
+  'metadata' => [
+                'order_id' => $orderId,
+                'customer_name' => 'Fulan Al Fulani',
+                'customer_phone' => '90000000',
+                'customer_email' => 'email@domain.tld'
+   ]
  ]);
  if(!empty($url)){  
   ## method will provide you with a payment id from Thawani, you should save it to your order. You can get it using this: $thawani->payment_id  
