@@ -38,16 +38,16 @@ class sqlite extends thawani {
                     id INTEGER PRIMARY KEY, 
                     ip_address TEXT, 
                     session_id TEXT, 
-                    raw_date JSON, 
+                    raw_data JSON, 
                     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)');
         }
     }
     public function saveSession($ip, $session, $raw){
         $raw = json_encode(is_array($raw)? $raw : []);
-        $stmt = $this->pdo->prepare('insert into session_list(ip_address, session_id, raw_date) values (:ip_address, :session_id, :raw_date)');
+        $stmt = $this->pdo->prepare('insert into session_list(ip_address, session_id, raw_data) values (:ip_address, :session_id, :raw_data)');
         $stmt->bindParam(':ip_address', $ip);
         $stmt->bindParam(':session_id', $session);
-        $stmt->bindParam(':raw_date', $raw);
+        $stmt->bindParam(':raw_data', $raw);
         $stmt->execute();
     }
     public function getLastSession($ip){
@@ -56,7 +56,7 @@ class sqlite extends thawani {
         $stmt->execute();
         $output = $stmt->fetch(\PDO::FETCH_ASSOC);
         if($output){
-            $output['raw_date'] = json_decode($output['raw_date'], true);
+            $output['raw_data'] = json_decode($output['raw_data'], true);
         }else{
             $output = [];
         }
