@@ -1,11 +1,12 @@
 <?php
-session_start();
 include('thawani.php');
+include('sqlite.php');
 $thawani = new \s4d\payment\thawani([
     'isTestMode' => 1, ## set it to 0 to use the class in production mode
     'public_key' => 'HGvTMLDssJghr9tlN9gr4DVYt0qyBy',
     'private_key' => 'rRQ26GcsZzoEhbrP2HZvLYDbn9C9et',
 ]);
+$db = new \s4d\db\sqlite();
 $thawani->debug = true;
 $_REQUEST['op'] = !isset($_REQUEST['op'])? '' : $_REQUEST['op']; ## to avoid PHP notice message
 switch ($_REQUEST['op']){
@@ -29,7 +30,7 @@ switch ($_REQUEST['op']){
         ];
         $url = $thawani->generatePaymentUrl($input);
         echo '<pre dir="ltr">' . print_r($thawani->responseData, true) . '</pre>';
-        $_SESSION['session_id'] = $thawani->payment_id; ## save session_id to use to check payment status later
+        $db->saveSession($_SERVER['REMOTE_ADDR'], $thawani->payment_id, $input);
         if(!empty($url)){
             ## method will provide you with a payment id from Thawani, you should save it to your order. You can get it using this: $thawani->payment_id
             ## header('location: '.$url); ## Redirect to payment page
@@ -53,7 +54,8 @@ switch ($_REQUEST['op']){
         }
         break;
     case 'checkPayment':
-        $check = $thawani->checkPaymentStatus($_SESSION['session_id']);
+        $session = $db->getLastSession($_SERVER['REMOTE_ADDR']);
+        $check = $thawani->checkPaymentStatus($session['session_id']);
         if($thawani->payment_status == 1){
             ## successful payment
             echo '<h2>successful payment</h2>';
