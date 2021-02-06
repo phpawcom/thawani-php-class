@@ -132,7 +132,7 @@ class thawani {
             if(isset($input['products']) && is_array($input['products'])){
                 foreach($input['products'] as $i => $product){
                     $input['products'][$i]['name'] = trim($input['products'][$i]['name']);
-                    $input['products'][$i]['name'] = strlen($input['products'][$i]['name']) > 40? substr($input['products'][$i]['name'], 0, 37).'...' : $input['products'][$i]['name'];
+                    $input['products'][$i]['name'] = strlen($input['products'][$i]['name']) > 40? mb_substr($input['products'][$i]['name'], 0, 37, 'utf-8').'...' : $input['products'][$i]['name'];
                 }
             }
         }
