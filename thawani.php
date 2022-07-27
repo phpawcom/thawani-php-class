@@ -273,20 +273,27 @@ class thawani {
      * @return array
      * This method to handle webhooks from Thawani Portal
      */
-    public function handleCallback($capture = 0){
+    public function handleCallback($capture = 0)
+    {
         $input = ['body' => file_get_contents("php://input"), 'headers' => getallheaders()];
         $output = ['is_success' => (int) 0, 'receipt' => (int) 0, 'session' => [], 'raw' => []];
-        $input['body'] = !empty($input['body'])? json_decode($input['body'], true) : [];
-        if(!is_array($input['body'])){ $input['body'] = []; }
         $output['raw'] = $input['body'];
-        if(isset($input['body']['payment_status']) && isset($input['body']['session_id']) && strtolower($input['body']['payment_status']) == 'paid'){
-            $output['session'] = $this->checkPaymentStatus($input['body']['session_id']);
-            $output['is_success'] = $this->payment_status;
-            $output['receipt'] = isset($input['body']['receipt'])? $input['body']['receipt'] : (int) 0;
+        $input['body'] = $input['body'] ? json_decode($input['body'], true) : [];
+        if (!is_array($input['body'])) {
+            $input['body'] = [];
         }
-        if($capture == 1){
+
+        $data = $input['body']['data'];
+        if ($data['session_id'] && strtolower($data['payment_status']) === 'paid') {
+            $output['session'] = $this->checkPaymentStatus($data['session_id']);
+            $output['is_success'] = $this->payment_status;
+            $output['receipt'] = $data['receipt'] ?: 0;
+        }
+
+        if ($capture == 1) {
             $this->captureCallback($input);
         }
+
         return $output;
     }
 
@@ -294,22 +301,27 @@ class thawani {
      * @param $input
      * This can be used for debugging to save logs
      */
-    public function captureCallback(array $input){
+    public function captureCallback(array $input)
+    {
         $basePath = __DIR__;
         $filePath = $basePath.'/logs';
         $fileName = time();
-        if(is_array($input['body']) && isset($input['body']['receipt'])){
-            $fileName = $input['body']['receipt'];
+
+        $data = $input['body']['data'];
+        if ($data && $data['receipt']) {
+            $fileName = $data['receipt'];
         }
-        if(!is_dir($filePath)){
-            if(is_writable($basePath)){
+
+        if (!is_dir($filePath)) {
+            if (is_writable($basePath)) {
                 mkdir($filePath, 0777);
                 $this->protect_directory_access($filePath, 'comprehensive');
-            }else{
-                trigger_error('Path <b>'.$filePath.'</b> is not writable', E_USER_ERROR);
+            } else {
+                trigger_error('Path <b>' . $filePath . '</b> is not writable', E_USER_ERROR);
             }
         }
-        $fileName = $filePath.'/'.$fileName.'.json';
+
+        $fileName = $filePath . '/' . $fileName . '.json';
         $handle = fopen($fileName, 'w');
         fwrite($handle, json_encode($input));
         fclose($handle);
