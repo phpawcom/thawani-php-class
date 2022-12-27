@@ -19,7 +19,7 @@
   "autoload": {
     "files": [
       "src/thawani/thawani.php",
-      "src/thawani/sqlite.php.php"
+      "src/thawani/sqlite.php"
     ],
     "psr-4": {
       "thawani-php-class\\": "src/thawani/"
