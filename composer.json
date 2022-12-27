@@ -1,0 +1,23 @@
+{
+  "name": "phpawcom/thawani-php-class",
+  "description": "This class to help with the integration with Thawani Gateway (V2.0)",
+  "type": "library",
+  "require": {
+    "php": ">=7.1"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^3.8"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Abdulaziz Al Rashdi",
+      "email": "me@alrashdi.co"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "thawani-php-class\\": "src/thawani/"
+    }
+}
