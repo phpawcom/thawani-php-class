@@ -2,8 +2,12 @@
 
 This class to help with the integration with Thawani Gateway (V2.0).
 You can find more about how to use it by [clicking here](https://www.s4d.om/g/e)
-## Getting Started
-You can clone the class using GIT:
+## How to install
+You can use composer:
+
+```composer require phpawcom/thawani-php-class```
+
+or clone the class using GIT:
 
     git clone https://github.com/phpawcom/thawani-php-class.git
 or Download the archive by [clicking here](https://github.com/phpawcom/thawani-php-class/archive/master.zip).
@@ -11,7 +15,7 @@ or Download the archive by [clicking here](https://github.com/phpawcom/thawani-p
 ## Usage
 ### Call the class:
 ```php
-include_once(__DIR__.'/thawani.php');
+// include_once(__DIR__.'/thawani.php'); || you don't need this if you are using composer autoload
 $thawani = new \s4d\payment\thawani([  
   'isTestMode' => 1, ## set it to 0 to use the class in production mode  
   'public_key' => 'HGvTMLDssJghr9tlN9gr4DVYt0qyBy',  
