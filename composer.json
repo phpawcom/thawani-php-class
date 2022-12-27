@@ -17,6 +17,10 @@
   ],
   "minimum-stability": "dev",
   "autoload": {
+    "files": [
+      "src/thawani/thawani.php",
+      "src/thawani/sqlite.php.php"
+    ],
     "psr-4": {
       "thawani-php-class\\": "src/thawani/"
     }
