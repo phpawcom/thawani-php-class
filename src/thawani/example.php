@@ -6,7 +6,7 @@ $thawani = new \s4d\payment\thawani([
     'public_key' => 'HGvTMLDssJghr9tlN9gr4DVYt0qyBy',
     'private_key' => 'rRQ26GcsZzoEhbrP2HZvLYDbn9C9et',
 ]);
-$db = new \s4d\db\sqlite();
+$db = new \s4d\db\sqlite('../../db/data.sqlite3');
 $thawani->debug = true;
 $_REQUEST['op'] = !isset($_REQUEST['op'])? '' : $_REQUEST['op']; ## to avoid PHP notice message
 switch ($_REQUEST['op']){

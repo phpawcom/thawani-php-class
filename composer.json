@@ -3,7 +3,8 @@
   "description": "This class to help with the integration with Thawani Gateway (V2.0)",
   "type": "library",
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.1",
+    "ext-curl": "*"
   },
   "require-dev": {
     "orchestra/testbench": "^3.8"
