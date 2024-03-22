@@ -1,3 +1,5 @@
-.idea/
-logs/
-db/
+/.idea/
+/logs/
+/db/
+/composer.lock
+/vendor
