@@ -2,7 +2,7 @@
   "name": "phpawcom/thawani-php-class",
   "description": "This class to help with the integration with Thawani Gateway (V2.0)",
   "type": "library",
-  "version": "1.1.2",
+  "version": "2.0.1",
   "require": {
     "php": ">=7.1",
     "ext-curl": "*"
